@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0D1421">
+
+    <!-- 统计数据行 -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="#1A1A2E" android:paddingVertical="12dp" android:paddingHorizontal="8dp"
+        android:orientation="horizontal">
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="最高" android:textColor="#AAAAAA" android:textSize="11sp"/>
+            <TextView android:id="@+id/tv_high_price" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="--"
+                android:textColor="#F44336" android:textSize="14sp" android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="最低" android:textColor="#AAAAAA" android:textSize="11sp"/>
+            <TextView android:id="@+id/tv_low_price" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="--"
+                android:textColor="#4CAF50" android:textSize="14sp" android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="涨跌幅" android:textColor="#AAAAAA" android:textSize="11sp"/>
+            <TextView android:id="@+id/tv_change_rate" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="--"
+                android:textColor="#F0B429" android:textSize="14sp" android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="振幅" android:textColor="#AAAAAA" android:textSize="11sp"/>
+            <TextView android:id="@+id/tv_amplitude" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="--"
+                android:textColor="#FFFFFF" android:textSize="14sp" android:textStyle="bold"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 时间段选择 -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:paddingHorizontal="8dp" android:paddingVertical="6dp"
+        android:background="#0D1421">
+        <Button android:id="@+id/btn_3m"
+            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:text="3个月" android:textSize="12sp" android:layout_marginEnd="4dp"
+            android:paddingVertical="6dp" android:paddingHorizontal="0dp"
+            android:backgroundTint="#1E2A3A" android:textColor="#AAAAAA"
+            android:insetTop="0dp" android:insetBottom="0dp"/>
+        <Button android:id="@+id/btn_6m"
+            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:text="6个月" android:textSize="12sp" android:layout_marginEnd="4dp"
+            android:paddingVertical="6dp" android:paddingHorizontal="0dp"
+            android:backgroundTint="#1E2A3A" android:textColor="#AAAAAA"
+            android:insetTop="0dp" android:insetBottom="0dp"/>
+        <Button android:id="@+id/btn_1y"
+            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:text="1年" android:textSize="12sp" android:layout_marginEnd="4dp"
+            android:paddingVertical="6dp" android:paddingHorizontal="0dp"
+            android:backgroundTint="#F0B429" android:textColor="#000000"
+            android:insetTop="0dp" android:insetBottom="0dp"/>
+        <Button android:id="@+id/btn_all"
+            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:text="全部" android:textSize="12sp"
+            android:paddingVertical="6dp" android:paddingHorizontal="0dp"
+            android:backgroundTint="#1E2A3A" android:textColor="#AAAAAA"
+            android:insetTop="0dp" android:insetBottom="0dp"/>
+    </LinearLayout>
+
+    <!-- 图表区域 -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:background="#1E2A3A" android:padding="12dp"
+        android:orientation="vertical" android:layout_margin="8dp">
+
+        <!-- 标题 + 叠加大盘按钮 -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical">
+            <TextView android:id="@+id/tv_chart_title" android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="历史走势（近1年）"
+                android:textColor="#F0B429" android:textSize="13sp" android:textStyle="bold"/>
+            <Button android:id="@+id/btn_toggle_csi300"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="叠加大盘"
+                android:textSize="12sp"
+                android:paddingHorizontal="12dp" android:paddingVertical="4dp"
+                android:insetTop="0dp" android:insetBottom="0dp"
+                android:backgroundTint="#1A2840"
+                android:textColor="#4DABF7"/>
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/history_chart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+</LinearLayout>
