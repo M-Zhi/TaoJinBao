@@ -121,7 +121,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="近7日走势"
+                        android:text="近7日开盘价"
                         android:textColor="#F0B429"
                         android:textSize="13sp"
                         android:textStyle="bold"/>
