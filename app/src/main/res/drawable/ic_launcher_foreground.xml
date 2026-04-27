@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Gold coin outer ring -->
+    <path
+        android:fillColor="#F0B429"
+        android:pathData="M54,14 m-28,0 a28,28 0 1,0 56,0 a28,28 0 1,0 -56,0"/>
+    <!-- Gold coin inner -->
+    <path
+        android:fillColor="#CC8800"
+        android:pathData="M54,14 m-21,0 a21,21 0 1,0 42,0 a21,21 0 1,0 -42,0"/>
+    <!-- Shine -->
+    <path
+        android:fillColor="#FFE066"
+        android:pathData="M44,5 Q52,1 60,4 Q52,8 44,5 Z"/>
+    <!-- Au text - A -->
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M44,19 L47.5,9 L51,9 L54.5,19 L52,19 L50,14.5 L48,14.5 L46,19 Z"/>
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M47.5,14 L50.5,14 L50.5,16 L47.5,16 Z"/>
+    <!-- u -->
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M56,12 L56,18 Q56,20 58,20 Q60,20 60,18 L60,12 L62,12 L62,20 Q62,22 58,22 Q54,22 54,20 L54,12 Z"/>
+
+    <!-- Price chart line -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#F0B429"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M8,82 L20,76 L32,79 L44,69 L56,72 L68,60 L80,64 L92,52 L100,48"/>
+    <!-- Chart area fill -->
+    <path
+        android:fillColor="#44F0B429"
+        android:pathData="M8,82 L20,76 L32,79 L44,69 L56,72 L68,60 L80,64 L92,52 L100,48 L100,95 L8,95 Z"/>
+    <!-- Up arrow -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M92,52 L98,42 L104,52 Z"/>
+</vector>
