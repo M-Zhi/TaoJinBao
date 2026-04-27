@@ -1,5 +1,7 @@
 package com.goldprice.app.utils
 
+import android.content.Context
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,9 +33,46 @@ object DateUtils {
 }
 
 /**
- * 上海黄金交易所交易时段
- * 日盘：周一至周五 09:00~15:30
- * 夜盘：周一至周四 20:00~次日 02:30（周五无夜盘）
+ * 节假日日历：从 assets/cn_holidays.json 加载法定节假日与调休补班数据
+ *
+ * holidays  = 本应交易但因法定节假日休市的日期（如五一、国庆）
+ * workdays  = 本应休息（周末）但因调休需要交易的日期
+ *
+ * 使用方式：在 Application.onCreate() 中调用 HolidayCalendar.init(context)
+ */
+object HolidayCalendar {
+    private val holidays = mutableSetOf<String>()   // 休市日（法定假日）
+    private val workdays = mutableSetOf<String>()   // 补班日（调休周末）
+    private var initialized = false
+
+    fun init(context: Context) {
+        if (initialized) return
+        try {
+            val json = context.assets.open("cn_holidays.json")
+                .bufferedReader().readText()
+            val obj = JSONObject(json)
+            val hArr = obj.getJSONArray("holidays")
+            for (i in 0 until hArr.length()) holidays.add(hArr.getString(i))
+            val wArr = obj.getJSONArray("workdays")
+            for (i in 0 until wArr.length()) workdays.add(wArr.getString(i))
+            initialized = true
+        } catch (e: Exception) {
+            // 解析失败时退化为纯周一至周五逻辑，不崩溃
+        }
+    }
+
+    /** 给定 dateKey（yyyy-MM-dd），判断是否是交易日 */
+    fun isTradingDay(dateKey: String, dayOfWeek: Int): Boolean {
+        if (holidays.contains(dateKey)) return false          // 法定节假日 → 休市
+        if (workdays.contains(dateKey)) return true           // 调休补班 → 交易
+        return dayOfWeek in Calendar.MONDAY..Calendar.FRIDAY  // 默认按工作日判断
+    }
+}
+
+/**
+ * 上海黄金交易所交易时段（含节假日感知）
+ * 日盘：交易日 09:00~15:30
+ * 夜盘：交易日 20:00~次日 02:30（周五无夜盘，即只有周一~周四有夜盘）
  */
 object TradingHoursUtils {
     fun currentStatus(): MarketStatus {
@@ -42,20 +81,37 @@ object TradingHoursUtils {
         val hour = cal.get(Calendar.HOUR_OF_DAY)
         val minute = cal.get(Calendar.MINUTE)
         val timeInMinutes = hour * 60 + minute
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        sdf.timeZone = TimeZone.getTimeZone("Asia/Shanghai")
+        val todayKey = sdf.format(cal.time)
 
-        // 日盘：周一至周五 09:00~15:30
-        if (day in Calendar.MONDAY..Calendar.FRIDAY) {
-            if (timeInMinutes in (9 * 60)..(15 * 60 + 30)) return MarketStatus.OPEN
+        // ── 节假日感知判断 ────────────────────────────────────────────────────
+        // isTradingDay 综合考虑了法定节假日（休市）和调休补班（开市）
+        val isTradayDay = HolidayCalendar.isTradingDay(todayKey, day)
+
+        // 夜盘凌晨：当前日期是"今天"，但夜盘属于"昨天"的交易日，需要查昨天
+        val calYesterday = Calendar.getInstance(TimeZone.getTimeZone("Asia/Shanghai")).also {
+            it.add(Calendar.DAY_OF_YEAR, -1)
+        }
+        val yesterdayKey = sdf.format(calYesterday.time)
+        val yesterdayDow = calYesterday.get(Calendar.DAY_OF_WEEK)
+        val isYesterdayTradingDay = HolidayCalendar.isTradingDay(yesterdayKey, yesterdayDow)
+        // 周五无夜盘（周五=6），故凌晨需排除"昨天是周五"的情况
+        val yesterdayHasNightSession = isYesterdayTradingDay && (yesterdayDow != Calendar.FRIDAY)
+
+        // ── 日盘：交易日 09:00~15:30 ─────────────────────────────────────────
+        if (isTradayDay && timeInMinutes in (9 * 60)..(15 * 60 + 30)) {
+            return MarketStatus.OPEN
         }
 
-        // 夜盘：周一至周四 20:00~23:59 + 周二至周五 00:00~02:30（次日凌晨）
-        // 20:00~23:59: 周一(MON)~周四(THU)
-        if (day in Calendar.MONDAY..Calendar.THURSDAY) {
-            if (timeInMinutes >= 20 * 60) return MarketStatus.OPEN
+        // ── 夜盘前段：交易日（非周五）20:00~23:59 ────────────────────────────
+        if (isTradayDay && day != Calendar.FRIDAY && timeInMinutes >= 20 * 60) {
+            return MarketStatus.OPEN
         }
-        // 00:00~02:30: 周二(TUE)~周五(FRI) 的凌晨（即周一~周四夜盘延续）
-        if (day in Calendar.TUESDAY..Calendar.FRIDAY) {
-            if (timeInMinutes <= 2 * 60 + 30) return MarketStatus.OPEN
+
+        // ── 夜盘后段：次日 00:00~02:30（昨天开了夜盘且昨天非周五）────────────
+        if (yesterdayHasNightSession && timeInMinutes <= 2 * 60 + 30) {
+            return MarketStatus.OPEN
         }
 
         return MarketStatus.CLOSED
