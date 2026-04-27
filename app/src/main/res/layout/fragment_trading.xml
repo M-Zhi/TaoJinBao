@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D1421">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:paddingBottom="80dp">
+
+                <!-- 定投对比卡片 -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:background="#1E2A3A" android:padding="12dp" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="定投对比（月投2000元·近3年）"
+                        android:textColor="#F0B429" android:textSize="13sp" android:textStyle="bold"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginTop="10dp">
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+                            android:background="#252040" android:padding="8dp" android:layout_marginEnd="4dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="定投沪深300" android:textColor="#AAAAAA" android:textSize="10sp"/>
+                            <TextView android:id="@+id/tv_dca_csi300_return"
+                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="计算中..." android:textColor="#9C88FF"
+                                android:textSize="15sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+                            android:background="#1A2840" android:padding="8dp" android:layout_marginEnd="4dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="定投纳斯达克" android:textColor="#AAAAAA" android:textSize="10sp"/>
+                            <TextView android:id="@+id/tv_dca_nasdaq_return"
+                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="计算中..." android:textColor="#4DABF7"
+                                android:textSize="15sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+                            android:background="#281E10" android:padding="8dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="定投黄金" android:textColor="#AAAAAA" android:textSize="10sp"/>
+                            <TextView android:id="@+id/tv_dca_gold_return"
+                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="计算中..." android:textColor="#F0B429"
+                                android:textSize="15sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- 账户容器（动态填充） -->
+                <LinearLayout
+                    android:id="@+id/account_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="新建账户"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:backgroundTint="#F0B429"
+        app:tint="@android:color/black"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
