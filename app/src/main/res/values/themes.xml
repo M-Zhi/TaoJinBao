@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.GoldPrice" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#F0B429</item>
+        <item name="colorPrimaryVariant">#C8960E</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="android:windowBackground">#0D1421</item>
+    </style>
+</resources>
