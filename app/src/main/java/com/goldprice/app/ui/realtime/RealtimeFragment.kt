@@ -118,7 +118,7 @@ class RealtimeFragment : Fragment() {
 
     private fun updateChart(history: List<PriceHistory>) {
         val entries = history.mapIndexed { i, h -> Entry(i.toFloat(), h.price.toFloat()) }
-        val dataSet = LineDataSet(entries, "金价").apply {
+        val dataSet = LineDataSet(entries, "开盘价").apply {
             color = Color.parseColor("#F0B429")
             valueTextColor = Color.TRANSPARENT
             lineWidth = 2.5f
