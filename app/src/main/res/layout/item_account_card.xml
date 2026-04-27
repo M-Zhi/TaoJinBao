@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#1E2A3A"
+    android:layout_marginBottom="8dp">
+
+    <!-- 颜色条 -->
+    <View
+        android:id="@+id/view_color_bar"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#4DABF7"/>
+
+    <!-- 卡片头部（点击展开/收起） -->
+    <LinearLayout
+        android:id="@+id/layout_card_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- 第一行: 名称 + 类型标签 + 编辑/删除 + 展开箭头 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_account_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="账户名称"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_account_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AI策略"
+                android:textColor="#F0B429"
+                android:textSize="11sp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:layout_marginEnd="8dp"/>
+
+            <ImageView
+                android:id="@+id/btn_edit"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_edit_outline"
+                android:layout_marginEnd="2dp"
+                android:padding="6dp"
+                android:background="?attr/selectableItemBackgroundBorderless"/>
+
+            <ImageView
+                android:id="@+id/btn_delete"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_delete_outline"
+                android:layout_marginEnd="2dp"
+                android:padding="6dp"
+                android:background="?attr/selectableItemBackgroundBorderless"/>
+
+            <ImageView
+                android:id="@+id/btn_toggle_expand"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_expand_more"
+                android:padding="6dp"
+                android:background="?attr/selectableItemBackgroundBorderless"/>
+        </LinearLayout>
+
+        <!-- 摘要信息 -->
+        <TextView
+            android:id="@+id/tv_account_cash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="现金: ¥100,000.00"
+            android:textColor="#CCCCCC"
+            android:textSize="13sp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_account_holding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="持仓: 0.00克  市值: ¥0.00"
+            android:textColor="#CCCCCC"
+            android:textSize="13sp"
+            android:layout_marginTop="3dp"/>
+
+        <TextView
+            android:id="@+id/tv_float_pnl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="浮盈: +0.00 (+0.00%)"
+            android:textColor="#4CAF50"
+            android:textSize="13sp"
+            android:layout_marginTop="3dp"/>
+
+        <TextView
+            android:id="@+id/tv_total_return"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="总收益: +0.00 (+0.00%)"
+            android:textColor="#4CAF50"
+            android:textSize="13sp"
+            android:layout_marginTop="3dp"/>
+
+    </LinearLayout>
+
+    <!-- 可展开区域 -->
+    <LinearLayout
+        android:id="@+id/layout_expandable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="12dp"
+        android:paddingBottom="12dp"
+        android:visibility="gone">
+
+        <!-- AI策略说明（仅AI账户显示） -->
+        <TextView
+            android:id="@+id/tv_ai_strategy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="买入: 涨幅≥0.3% 仓位&lt;60% 用30%现金 | 卖出: 跌幅≥0.3% 卖50%仓 | 止损: 3%"
+            android:textColor="#AAAAAA"
+            android:textSize="12sp"
+            android:background="#0D1421"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_ai_params"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改策略参数"
+            android:textSize="12sp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="6dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:backgroundTint="#33F0B429"
+            android:textColor="#F0B429"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"/>
+
+        <!-- 操作按钮 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_buy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="买入"
+                android:textSize="13sp"
+                android:paddingVertical="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:backgroundTint="#4DABF7"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="4dp"/>
+
+            <Button
+                android:id="@+id/btn_sell"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="卖出"
+                android:textSize="13sp"
+                android:paddingVertical="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:backgroundTint="#F44336"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="4dp"/>
+
+            <Button
+                android:id="@+id/btn_reset"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="重置"
+                android:textSize="13sp"
+                android:paddingVertical="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:backgroundTint="#555555"
+                android:textColor="#FFFFFF"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
