@@ -80,6 +80,30 @@ class GoldRepository(
     }
 
     /**
+     * 收盘后补录今日开盘价（幂等）
+     *
+     * 场景：用户在收盘后（15:30后）首次打开 App，ViewModel 走休市分支不调用
+     * fetchAndSaveCurrentPrice，导致今日无数据。
+     * 但 nf_AU0 的 fields[3]（今开盘）全天有效，收盘后仍能取到当日开盘价。
+     * 此方法在休市分支静默调用，insertIgnore 保证幂等——已有记录不会覆盖。
+     */
+    suspend fun tryBackfillTodayOpeningPrice() = withContext(Dispatchers.IO) {
+        try {
+            val result = fetchGoldPriceSina()
+                ?: fetchGoldPriceEastMoney()
+                ?: fetchGoldPriceSGE()
+            val openPrice = result?.first ?: return@withContext
+            priceDao.insertIgnore(PriceHistory(
+                dateKey = DateUtils.todayKey(),
+                price = openPrice,
+                timestamp = System.currentTimeMillis()
+            ))
+        } catch (e: Exception) {
+            Log.w("GoldRepo", "backfill today opening price failed: ${e.message}")
+        }
+    }
+
+    /**
      * 接口1：新浪财经 沪金连续 nf_AU0（上期所黄金期货，CNY/克）  GBK编码
      * 字段: [0]名称 [1]代码 [2]昨结算 [3]今开盘 [4]最低 [5]? [6]最新价 ...
      * 返回 Pair(开盘价?, 实时价)：盘前 fields[3]=0 时 openPrice=null，不写 DB
