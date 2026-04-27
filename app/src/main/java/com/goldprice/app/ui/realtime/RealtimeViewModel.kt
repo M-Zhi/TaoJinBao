@@ -71,6 +71,10 @@ class RealtimeViewModel(private val repo: GoldRepository) : ViewModel() {
                 // 休市：使用本地最后收盘价
                 loadLastKnownPrice()
                 _statusMessage.value = "休市中"
+                // 收盘后静默补录今日开盘价：
+                // fields[3]（今开盘）全天有效，解决用户在收盘后首次打开 App 时今日数据缺失的问题
+                // insertIgnore 幂等，已有记录不会覆盖
+                repo.tryBackfillTodayOpeningPrice()
             }
             // 计算预测
             try {
