@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Background gradient circle (dark navy) -->
+    <path
+        android:fillColor="#0D1421"
+        android:pathData="M0,0 L108,0 L108,108 L0,108 Z"/>
+
+    <!-- Gold gradient background shape (rounded square for adaptive icon) -->
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M12,12 L96,12 Q100,12 100,16 L100,92 Q100,96 96,96 L12,96 Q8,96 8,92 L8,16 Q8,12 12,12 Z"/>
+
+    <!-- Gold coin outer ring -->
+    <path
+        android:fillColor="#F0B429"
+        android:pathData="M54,20 m-26,0 a26,26 0 1,0 52,0 a26,26 0 1,0 -52,0"/>
+
+    <!-- Gold coin inner circle -->
+    <path
+        android:fillColor="#D4920A"
+        android:pathData="M54,20 m-20,0 a20,20 0 1,0 40,0 a20,20 0 1,0 -40,0"/>
+
+    <!-- Gold coin shine effect -->
+    <path
+        android:fillColor="#FFD666"
+        android:pathData="M44,12 Q50,8 56,10 Q48,14 44,12 Z"/>
+
+    <!-- Au text on coin -->
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M46.5,17 L48.5,17 L48.5,23 L46.5,23 Z"/>
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M44,23 L47,17 L50,17 L53,23 L51,23 L49.5,20 L47.5,20 L46,23 Z"/>
+    <!-- 9 -->
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M55,17 Q59,17 59,20 Q59,23 55,23 Q53,23 53,22 L53,17 Q53,17 55,17 Z M55,19 Q55,21 56,21 Q57,21 57,20 Q57,19 55,19 Z"/>
+
+    <!-- Price chart line at bottom -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#F0B429"
+        android:strokeWidth="2.5"
+        android:pathData="M12,78 L22,72 L32,75 L42,65 L52,68 L62,58 L72,62 L82,52 L92,48"/>
+
+    <!-- Chart fill area -->
+    <path
+        android:fillColor="#33F0B429"
+        android:pathData="M12,78 L22,72 L32,75 L42,65 L52,68 L62,58 L72,62 L82,52 L92,48 L92,88 L12,88 Z"/>
+
+    <!-- Upward arrow trend indicator -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M86,52 L90,44 L94,52 Z"/>
+
+    <!-- Bottom label dots (decorative) -->
+    <path
+        android:fillColor="#F0B429"
+        android:pathData="M22,85 m-2,0 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0"/>
+    <path
+        android:fillColor="#4DABF7"
+        android:pathData="M52,85 m-2,0 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0"/>
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M82,85 m-2,0 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0"/>
+
+</vector>
