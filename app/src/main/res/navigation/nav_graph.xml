@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/realtimeFragment">
+
+    <fragment android:id="@+id/realtimeFragment"
+        android:name="com.goldprice.app.ui.realtime.RealtimeFragment"
+        android:label="实时金价"/>
+    <fragment android:id="@+id/historyFragment"
+        android:name="com.goldprice.app.ui.history.HistoryFragment"
+        android:label="历史走势"/>
+    <fragment android:id="@+id/deviationFragment"
+        android:name="com.goldprice.app.ui.deviation.DeviationFragment"
+        android:label="预测回看"/>
+    <fragment android:id="@+id/tradingFragment"
+        android:name="com.goldprice.app.ui.trading.TradingFragment"
+        android:label="模拟操盘"/>
+</navigation>
